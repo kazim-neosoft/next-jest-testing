@@ -23,13 +23,15 @@ const Task: React.FC<TaskProp> = ({ task, getTodosData }) => {
 
   const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    await updateTodo({
-      id: task.id,
-      text: taskToEdit.text,
-      isDone: taskToEdit.isDone,
-    });
+    if(taskToEdit.text!==task.text){
+      await updateTodo({
+        id: task.id,
+        text: taskToEdit.text,
+        isDone: taskToEdit.isDone,
+      });
+      getTodosData();
+    }
     setModalEditOpen(false);
-    getTodosData();
     // router.refresh();
   };
 
